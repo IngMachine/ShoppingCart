@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "shopping-cart-708cb": {
+      "hosting": {
+        "shoppingCart": [
+          "shopping-cart-708cb"
+        ]
+      }
+    }
+  }
+}

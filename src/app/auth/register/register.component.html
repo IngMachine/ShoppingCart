@@ -1,0 +1,34 @@
+<div class="p-d-flex p-jc-center">
+    <div class="p-mt-2" >
+        <p-card header="Sign Up" [style]="{width: '360px'}" styleClass="p-card-shadow">
+            <ng-template pTemplate="header">
+                <img alt="Card" src="assets/showcase/images/usercard.png">
+            </ng-template>
+            <form [formGroup]="myform" (ngSubmit)="singup" autocomplete="off">
+                <div class="p-inputgroup p-mb-2">
+                    <input type="text" pInputText placeholder="Username" formControlName="username">
+                    <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                </div>
+                <div class="p-inputgroup p-mb-2">
+                    <input type="email" pInputText placeholder="Email" formControlName="email">
+                    <span class="p-inputgroup-addon"><i class="pi pi-briefcase"></i></span>
+                </div>
+                <div class="p-inputgroup">
+                    <input type="password" pInputText placeholder="Password" formControlName="password">
+                    <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
+                </div>
+                <div class="p-d-flex p-jc-center p-mt-3">
+                    <button pButton type="submit" label="Sign Up" icon="pi pi-user-plus" (click)="singup()"></button>
+                </div>
+            </form>
+            <p-divider align="center" type="dashed">
+                <b>Or</b>
+            </p-divider>    
+            <ng-template pTemplate="footer">
+                <div class="p-d-flex p-ai-center p-jc-center">
+                    <p-button routerLink="/auth/login" label="Login" icon="pi pi-sign-in" styleClass="p-button-success"></p-button>
+                </div>
+            </ng-template>
+        </p-card>
+    </div>
+</div>
