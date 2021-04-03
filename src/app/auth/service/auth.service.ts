@@ -6,6 +6,9 @@ import * as firebase from 'firebase/app';
 import { map } from 'rxjs/operators';
 import { User } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/ngrx/app.reducer';
+import { ActivateLoadingAction, DeactivateLoadingAction } from '../../ngrx/actions/ui-loading.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +20,8 @@ export class AuthService {
   constructor(
     private firebaseAuth: AngularFireAuth,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private store: Store<AppState>
   ) {}
 
   initAuthListener(): void{
@@ -27,6 +31,7 @@ export class AuthService {
   }
 
   signup(email: string, password: string, username: string): Promise<void> {
+    this.store.dispatch( new ActivateLoadingAction() );
     return this.firebaseAuth
       .createUserWithEmailAndPassword(email, password)
       .then(value => {
@@ -38,6 +43,7 @@ export class AuthService {
         this.http.post<User>(`${this.url}users.json`, user)
                  .subscribe( () => {
                    this.router.navigate(['/']);
+                   this.store.dispatch( new DeactivateLoadingAction() );
                  });
       });
   }
