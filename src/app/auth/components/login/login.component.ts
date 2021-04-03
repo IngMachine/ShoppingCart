@@ -1,14 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
+import { DeactivateLoadingAction } from '../../../ngrx/actions/ui-loading.actions';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../ngrx/app.reducer';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
+  loading: boolean;
+  subscriptionUI: Subscription;
 
   display: boolean = false;
   error!: string;
@@ -20,10 +26,17 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    public store: Store<AppState>
   ) { }
 
   ngOnInit(): void {
+    this.subscriptionUI = this.store.select('uiLoading')
+              .subscribe( uiLoading => this.loading = uiLoading.isLoading );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptionUI.unsubscribe();
   }
 
   login(): void {
@@ -32,6 +45,7 @@ export class LoginComponent implements OnInit {
                     .catch(err => {
                       this.error = err.message;
                       this.display = true;
+                      this.store.dispatch( new DeactivateLoadingAction() );
                     });
   }
 

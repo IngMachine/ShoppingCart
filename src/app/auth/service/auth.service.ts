@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/ngrx/app.reducer';
 import { ActivateLoadingAction, DeactivateLoadingAction } from '../../ngrx/actions/ui-loading.actions';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -49,10 +50,12 @@ export class AuthService {
   }
 
   login(email: string, password: string): Promise<void>{
+    this.store.dispatch( new ActivateLoadingAction() );
     return this.firebaseAuth
       .signInWithEmailAndPassword(email, password)
       .then( value => {
         this.router.navigate(['/']);
+        this.store.dispatch( new DeactivateLoadingAction() );
       });
   }
 
@@ -61,7 +64,7 @@ export class AuthService {
     this.firebaseAuth.signOut();
   }
 
-  isAuth() {
+  isAuth(): Observable<boolean> {
     return this.firebaseAuth.authState
                             .pipe(
                               map( fbUser =>  {

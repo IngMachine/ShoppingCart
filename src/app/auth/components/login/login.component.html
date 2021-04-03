@@ -14,7 +14,8 @@
                     <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
                 </div>
                 <div class="p-d-flex p-jc-center">
-                    <button [disabled]="myForm.invalid" pButton type="submit" (click)="login()" label="Login" icon="pi pi-sign-in" ></button>
+                    <button *ngIf="!loading" [disabled]="myForm.invalid" pButton type="submit" (click)="login()" label="Login" icon="pi pi-sign-in" ></button>
+                    <button *ngIf="loading" [disabled]="myForm.invalid" pButton type="button" label="Please wit" icon="pi pi-spin pi-spinner" ></button>
                 </div>
             </form>
             <p-divider align="center" type="dashed">
