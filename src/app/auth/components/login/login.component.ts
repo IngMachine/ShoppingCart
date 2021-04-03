@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from '../service/auth.service';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -8,6 +8,10 @@ import { AuthService } from '../service/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
+
+  display: boolean = false;
+  error!: string;
 
   myForm: FormGroup = this.fb.group({
     email: ['', [Validators.required]],
@@ -24,7 +28,11 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     const { email, password } = this.myForm.value;
-    this.authService.login( email, password);
+    this.authService.login( email, password)
+                    .catch(err => {
+                      this.error = err.message;
+                      this.display = true;
+                    });
   }
 
 }

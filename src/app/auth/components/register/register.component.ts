@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../service/auth.service';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -8,6 +8,9 @@ import { AuthService } from '../service/auth.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+
+  display: boolean = false;
+  error!: string;
 
   myform: FormGroup = this.fb.group({
     username: ['', [Validators.required]],
@@ -24,8 +27,11 @@ export class RegisterComponent implements OnInit {
   }
   singup(): void {
     const { username, email, password} = this.myform.value;
-    this.authService.signup(email, password, username);
-
+    this.authService.signup(email, password, username)
+                    .catch(err => {
+                      this.error = err.message;
+                      this.display = true;
+                    });
   }
 
 }

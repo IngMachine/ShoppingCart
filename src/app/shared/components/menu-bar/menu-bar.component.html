@@ -1,0 +1,11 @@
+<p-menubar [model]="items">
+    <ng-template pTemplate="start">
+        <img src="assets/showcase/images/logo.jpg" height="40" class="p-mr-2">
+    </ng-template>
+    <ng-template pTemplate="end">
+        <div class="p-d-flex p-ac-center">
+            <p-chip label="Text with image" image="assets/showcase/images/avatar/user.png" class="p-ml-6 p-mt-1 p-mr-2"></p-chip>
+            <p-splitButton label="Sign off" icon="pi pi-sign-out" (click)="logout()" [model]="items1" styleClass="p-button-secondary"></p-splitButton>
+        </div>
+    </ng-template>
+</p-menubar>

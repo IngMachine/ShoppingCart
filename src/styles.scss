@@ -1,11 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body {
-    margin: 10px;
-    background-color: var( --surface-b );
-    font-family: var( --font-family );
+html,
+body {
+  margin: 10px;
+  background-color: var(--surface-b);
+  font-family: var(--font-family);
 }
 
 .text-layout {
-    color: var( --text-color );
+  color: var(--text-color);
+}
+
+.product-badge {
+  border-radius: 2px;
+  padding: .25em .5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .3px;
+}
+
+.product-badge.status-lowstock {
+  background: #feedaf;
+  color: #8a5340;
+}
+
+.product-badge.status-outofstock {
+  background: #ffcdd2;
+  color: #c63737;
+}
+
+.product-badge.status-instock {
+  background: #c8e6c9;
+  color: #256029;
 }

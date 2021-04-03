@@ -10,7 +10,16 @@ import {DividerModule} from 'primeng/divider';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import {CaptchaModule} from 'primeng/captcha';
+import { ChipModule } from 'primeng/chip';
+import {SplitButtonModule} from 'primeng/splitbutton';
 
+import {MenubarModule} from 'primeng/menubar';
+import {DropdownModule} from 'primeng/dropdown';
+import {DataViewModule} from 'primeng/dataview';
+import {RatingModule} from 'primeng/rating';
+import {BreadcrumbModule} from 'primeng/breadcrumb';
+import {CarouselModule} from 'primeng/carousel';
+import {DialogModule} from 'primeng/dialog';
 @NgModule({
   exports: [
     CardModule,
@@ -20,7 +29,17 @@ import {CaptchaModule} from 'primeng/captcha';
     DividerModule,
     MessageModule,
     MessagesModule,
-    CaptchaModule
+    CaptchaModule,
+    MenubarModule,
+    ChipModule,
+    SplitButtonModule,
+    DialogModule,
+    DataViewModule,
+    BreadcrumbModule,
+    DropdownModule,
+    RatingModule,
+    CarouselModule
   ]
 })
 export class PrimeNgModule { }
+

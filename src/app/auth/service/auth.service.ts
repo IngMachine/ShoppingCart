@@ -3,43 +3,67 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
-import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { User } from '../models/user.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  private url: string = 'https://shopping-cart-708cb-default-rtdb.firebaseio.com/';
+
   constructor(
     private firebaseAuth: AngularFireAuth,
-    private router: Router
-  ) {
+    private router: Router,
+    private http: HttpClient
+  ) {}
+
+  initAuthListener(): void{
+    this.firebaseAuth.authState.subscribe( fbUser => {
+      console.log(fbUser);
+    });
   }
 
-  signup(email: string, password: string, username: string): void{
-    this.firebaseAuth
+  signup(email: string, password: string, username: string): Promise<void> {
+    return this.firebaseAuth
       .createUserWithEmailAndPassword(email, password)
       .then(value => {
-        this.router.navigate(['/']);
-      })
-      .catch(err => {
-        console.log('Something went wrong:', err.message);
+        const user: User = {
+          uid: value.user?.uid,
+          email: value.user?.email,
+          username
+        };
+        this.http.post<User>(`${this.url}users.json`, user)
+                 .subscribe( () => {
+                   this.router.navigate(['/']);
+                 });
       });
   }
 
-  login(email: string, password: string): void{
-    this.firebaseAuth
+  login(email: string, password: string): Promise<void>{
+    return this.firebaseAuth
       .signInWithEmailAndPassword(email, password)
-      .then( () => {
+      .then( value => {
         this.router.navigate(['/']);
-      })
-      .catch(err => {
-        console.log('Something went wrong:', err.message);
       });
   }
 
   logout(): void{
-    this.firebaseAuth
-      .signOut();
+    this.router.navigate(['/auth/login']);
+    this.firebaseAuth.signOut();
+  }
+
+  isAuth() {
+    return this.firebaseAuth.authState
+                            .pipe(
+                              map( fbUser =>  {
+                                if ( fbUser == null){
+                                  this.router.navigate(['/auth/login']);
+                                }
+                                return fbUser != null;
+                              })
+                            );
   }
 }
