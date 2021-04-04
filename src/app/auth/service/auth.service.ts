@@ -10,24 +10,26 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/ngrx/app.reducer';
 import { ActivateLoadingAction, DeactivateLoadingAction } from '../../ngrx/actions/ui-loading.actions';
 import { Observable } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private url: string = 'https://shopping-cart-708cb-default-rtdb.firebaseio.com/';
-
   constructor(
     private firebaseAuth: AngularFireAuth,
+    private afDB: AngularFirestore,
     private router: Router,
     private http: HttpClient,
     private store: Store<AppState>
   ) {}
 
   initAuthListener(): void{
-    this.firebaseAuth.authState.subscribe( fbUser => {
+    this.firebaseAuth.authState.subscribe( (fbUser: firebase.default.User) => {
       console.log(fbUser);
+      if ( fbUser ){
+      }
     });
   }
 
@@ -35,18 +37,27 @@ export class AuthService {
     this.store.dispatch( new ActivateLoadingAction() );
     return this.firebaseAuth
       .createUserWithEmailAndPassword(email, password)
-      .then(value => {
+      .then(resp => {
         const user: User = {
-          uid: value.user?.uid,
-          email: value.user?.email,
+          uid: resp.user?.uid,
+          email: resp.user?.email,
           username
         };
-        this.http.post<User>(`${this.url}users.json`, user)
-                 .subscribe( () => {
+        this.afDB
+              .doc(`${ user.uid }/usuario`)
+              .set( user )
+              .then( () => {
+                this.router.navigate(['/']);
+                this.store.dispatch( new DeactivateLoadingAction() );
+              });
+      });
+      /*   this.http.post(`${this.url}users.json`, user)
+                 .subscribe( (resp) => {
+                   console.log(resp);
                    this.router.navigate(['/']);
                    this.store.dispatch( new DeactivateLoadingAction() );
                  });
-      });
+      }); */
   }
 
   login(email: string, password: string): Promise<void>{

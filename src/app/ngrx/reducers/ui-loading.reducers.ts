@@ -1,15 +1,15 @@
 import * as fromUILoading from '../actions/ui-loading.actions';
 import { actions } from '../actions/ui-loading.actions';
 
-export interface State {
+export interface UIState {
     isLoading: boolean;
 }
 
-const initState: State = {
+const initState: UIState = {
     isLoading: false
 };
 
-export function uiLoadingReducer( state = initState, action: fromUILoading.actions): State {
+export function uiLoadingReducer( state = initState, action: fromUILoading.actions): UIState {
     switch ( action.type ){
         case fromUILoading.ACTIVATE_LOADING:
             return {

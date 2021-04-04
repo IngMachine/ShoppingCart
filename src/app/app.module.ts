@@ -12,6 +12,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HttpClientModule } from '@angular/common/http';
 import { appReducers } from './ngrx/app.reducer';
 
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -23,6 +25,7 @@ import { appReducers } from './ngrx/app.reducer';
     AppRoutingModule,
     StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    AngularFirestoreModule,
     HttpClientModule
   ],
   providers: [],
