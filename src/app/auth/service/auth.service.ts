@@ -4,24 +4,27 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
 import { map } from 'rxjs/operators';
-import { User } from '../models/user.model';
+import { User, DataObj } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/ngrx/app.reducer';
 import { ActivateLoadingAction, DeactivateLoadingAction } from '../../ngrx/actions/ui-loading.actions';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { SetUserAction, UnSetUserAction } from '../../ngrx/actions/auth.actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  private userSubscription: Subscription = new Subscription();
+  private user: User;
+
   constructor(
     private firebaseAuth: AngularFireAuth,
     private afDB: AngularFirestore,
     private router: Router,
-    private http: HttpClient,
     private store: Store<AppState>
   ) {}
 
@@ -29,6 +32,16 @@ export class AuthService {
     this.firebaseAuth.authState.subscribe( (fbUser: firebase.default.User) => {
       console.log(fbUser);
       if ( fbUser ){
+        this.userSubscription = this.afDB.doc(`${ fbUser.uid }/usuario`)
+        .valueChanges()
+        .subscribe( (usuarioObj: DataObj) => {
+          const newUser = new User( usuarioObj );
+          this.store.dispatch( new SetUserAction( newUser ));
+          this.user = newUser;
+         });
+      } else {
+        this.user = null;
+        this.userSubscription.unsubscribe();
       }
     });
   }
@@ -51,13 +64,6 @@ export class AuthService {
                 this.store.dispatch( new DeactivateLoadingAction() );
               });
       });
-      /*   this.http.post(`${this.url}users.json`, user)
-                 .subscribe( (resp) => {
-                   console.log(resp);
-                   this.router.navigate(['/']);
-                   this.store.dispatch( new DeactivateLoadingAction() );
-                 });
-      }); */
   }
 
   login(email: string, password: string): Promise<void>{
@@ -73,6 +79,7 @@ export class AuthService {
   logout(): void{
     this.router.navigate(['/auth/login']);
     this.firebaseAuth.signOut();
+    this.store.dispatch( new UnSetUserAction() );
   }
 
   isAuth(): Observable<boolean> {
@@ -85,5 +92,9 @@ export class AuthService {
                                 return fbUser != null;
                               })
                             );
+  }
+
+  getUsuario(): User {
+    return {...this.user};
   }
 }

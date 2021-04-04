@@ -4,13 +4,16 @@ export class User {
     public email: string;
     public uid: string;
 
-    constructor(
-        username: string,
-        email: string,
-        uid: string
-    ) {
-        this.username = username;
-        this.email = email;
-        this.uid = uid;
+    constructor( obj: DataObj) {
+        this.username = obj && obj.username || null;
+        this.email = obj && obj.email || null;
+        this.uid = obj && obj.uid || null;
     }
+}
+
+
+export interface DataObj {
+    uid: string;
+    email: string;
+    username: string;
 }
