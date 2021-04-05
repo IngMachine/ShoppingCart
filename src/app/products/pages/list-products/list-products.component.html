@@ -41,7 +41,7 @@
                         </div>
                         <div class="product-list-action">
                             <span class="product-price">${{product.price}}</span>
-                            <p-button icon="pi pi-shopping-cart" label="Add to Cart" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></p-button>
+                            <p-button icon="pi pi-shopping-cart" label="Add to Cart" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"  (click)="addCart(product)"></p-button>
                             <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
                         </div>
                     </div>

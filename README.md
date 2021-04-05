@@ -21,25 +21,25 @@ ng serve -o
 ## Funcionamiento y vistas del Shopping Cart
 El usuario (No registrado) podra ver la pestaña home donde solo podra ver algunos de los productos y la pestaña Products donde se encuentran
 todos los productos que pueden ser agregados al cart.
-![](/home.png)
-![](/products.png)
+![home](image-readme/home.png)
+![](image-readme/products.png)
 El usuario (No registrado) al darle click en comprar un producto, en la pestaña Carts, Orders lo redirecciionara al login donde si tiene una cuenta se podraa loguear si no 
 debera registrarse
 | Login | SignUp |
 | --- | --- |
-| ![](/login.png) | ![](/signUp.png) |
+| ![](image-readme/login.png) | ![](image-readme/signUp.png) |
 Despues de loguarse puede:
 ## Cart
 | Imagen | Acciones |
 | --- | --- |
-| ![](/guardarCarrito.png) |  **1)** Agrega un producto al carrito y recibe una notificacion. **2)** Añade un contador de los producto agregado al carrito|
-| ![](/Cart.png) |  **1)** Eliminamos el  producto de la fila **2)**Agregagamos una orden y vizualimos todas las ordenes hecha por el usuario autenticado.|
+| ![](image-readme/guardarCarrito.png) |  **1)** Agrega un producto al carrito y recibe una notificacion. **2)** Añade un contador de los producto agregado al carrito|
+| ![](image-readme/Cart.png) |  **1)** Eliminamos el  producto de la fila **2)**Agregagamos una orden y vizualimos todas las ordenes hecha por el usuario autenticado.|
 
 ## Orders
 
 | Imagen | Acciones |
 | --- | --- |
-| ![](/orders.png) |  Vizualizacion del actaul carrito y anteriores |
+| ![](image-readme/orders.png) |  Vizualizacion del actaul carrito y anteriores |
 
 
 Este proyecto me sirvio para comprender mejor el manejo de estado con ngrx aprendido en udemy en el curso de REDUX en Angular con NGRX: Desde las bases hasta la práctica 
