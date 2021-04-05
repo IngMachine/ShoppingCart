@@ -10,6 +10,7 @@ import { CartService } from '../../service/cart.service';
 import { Product } from './../../../products/interface/product';
 import { DeactivateLoadingAction } from '../../../ngrx/actions/ui-loading.actions';
 import { Subscription } from 'rxjs';
+import { ChangeCarStatuAction } from '../../../ngrx/actions/cart.actions';
 
 @Component({
   selector: 'app-current-cart',
@@ -22,6 +23,8 @@ export class CurrentCartComponent implements OnInit {
   items!: MenuItem[];
 
   home!: MenuItem;
+
+  estado: boolean = false;
 
   products: Product[] = [];
   constructor(
@@ -65,16 +68,26 @@ export class CurrentCartComponent implements OnInit {
   };
 
   ordenCart(){
-    this.cartService.ordeCart(this.products);
-    this.showSuccess();
-    this.route.navigate(['/orders']);
-    this.cartService.deleteCart();
+    if( this.products.length !== 0 ){
+      this.cartService.ordeCart(this.products);
+      this.showSuccess();
+      this.store.dispatch( new ChangeCarStatuAction() );
+      this.route.navigate(['/orders']);
+      this.cartService.deleteCart();
+
+    } else{
+      this.showError();
+    }
   }
 
 
   showSuccess() {
     this.messageService.add({severity:'success', summary: 'Ordered cart'});
-}
+  }
+
+  showError() {
+    this.messageService.add({severity:'warn', summary: 'No Product', detail: 'Add a product to cart'});
+  }
 
   showInfo(product: Product) {
     this.messageService.add({severity:'info', summary: 'Product removed from cart', detail: `Name: ${product.name} | Price: $${product.price}`});

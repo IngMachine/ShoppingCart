@@ -12,12 +12,15 @@ const initState: OrderStateCart = {
 
 export function cartProdcutsReducer(state = initState, action: fromOrder.acciones ): OrderStateCart {
   switch ( action.type ) {
-    case fromOrder.CartsTypesActyon.SET_ORDER_CARTS:
+    case fromOrder.SET_ORDER_CARTS:
       return {
         carts: [...action.carts]
       };
-
-      default:
-        return state;
+    case fromOrder.UN_SET_ORDER_CARTS:
+      return {
+        carts: null
+      };
+    default:
+      return state;
   }
 }

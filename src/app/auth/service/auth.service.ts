@@ -14,6 +14,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
 
 import { User, DataObj } from '../models/user.model';
+import { UnSetOrderCart } from '../../ngrx/actions/order.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -80,8 +81,10 @@ export class AuthService {
 
   logout(): void{
     this.router.navigate(['/auth/login']);
-    this.firebaseAuth.signOut();
+    
+    this.store.dispatch( new UnSetOrderCart() );
     this.store.dispatch( new UnSetUserAction() );
+    this.firebaseAuth.signOut();
   }
 
   isAuth(): Observable<boolean> {

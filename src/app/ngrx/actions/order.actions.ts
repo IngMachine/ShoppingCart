@@ -1,19 +1,17 @@
 import { Action } from '@ngrx/store';
 import { Cart } from '../../carts/interface/cart.interface';
 
-export enum CartsTypesActyon {
-  SET_ORDER_CARTS = '[Cart-Products] Set Cart Products',
-  UN_SET_ORDER_CARTS = '[Cart-Products] Set Cart Products'
-}
+export const SET_ORDER_CARTS = '[Cart-Products] Set Cart Products';
+export const UN_SET_ORDER_CARTS = '[Cart-Products] UNSet Cart Products';
 
 export class SelectAllOrderCart implements Action {
-  readonly type = CartsTypesActyon.SET_ORDER_CARTS;
+  readonly type = SET_ORDER_CARTS;
   constructor(public carts: Cart[]) {}
 }
 
-export class UnsetCartProdutsAction implements Action {
-  readonly type = CartsTypesActyon.UN_SET_ORDER_CARTS;
+export class UnSetOrderCart implements Action {
+  readonly type = UN_SET_ORDER_CARTS;
 }
 
 
-export type acciones = SelectAllOrderCart;
+export type acciones = SelectAllOrderCart | UnSetOrderCart;
