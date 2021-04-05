@@ -28,3 +28,19 @@ debera registrarse
 | Login | SignUp |
 | --- | --- |
 | ![](/login.png) | ![](/signUp.png) |
+Despues de loguarse puede:
+## Cart
+| Imagen | Acciones |
+| --- | --- |
+| ![](/guardarCarrito.png) |  **1)** Agrega un producto al carrito y recibe una notificacion. **2)** Añade un contador de los producto agregado al carrito|
+| ![](/Cart.png) |  **1)** Eliminamos el  producto de la fila **2)**Agregagamos una orden y vizualimos todas las ordenes hecha por el usuario autenticado.|
+
+## Orders
+
+| Imagen | Acciones |
+| --- | --- |
+| ![](/orders.png) |  Vizualizacion del actaul carrito y anteriores |
+
+
+Este proyecto me sirvio para comprender mejor el manejo de estado con ngrx aprendido en udemy en el curso de REDUX en Angular con NGRX: Desde las bases hasta la práctica 
+distado por Fernando Herrera.
