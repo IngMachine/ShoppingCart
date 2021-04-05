@@ -18,4 +18,6 @@ En la terminal en la carpeta del proyecto ejecutar los siguientes comando.
 npm install
 ng serve -o
 ```
-## 
+## Funcionamiento y vistas del Shopping Cart
+
+![](/home.png)
