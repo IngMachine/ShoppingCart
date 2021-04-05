@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
-
-import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import * as firebase from 'firebase/app';
-import { map } from 'rxjs/operators';
-import { User, DataObj } from '../models/user.model';
-import { HttpClient } from '@angular/common/http';
+
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/ngrx/app.reducer';
 import { ActivateLoadingAction, DeactivateLoadingAction } from '../../ngrx/actions/ui-loading.actions';
-import { Observable, Subscription } from 'rxjs';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { SetUserAction, UnSetUserAction } from '../../ngrx/actions/auth.actions';
+import { AppState } from 'src/app/ngrx/app.reducer';
+
+import { Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
+import * as firebase from 'firebase/app';
+
+import { User, DataObj } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -94,7 +96,7 @@ export class AuthService {
                             );
   }
 
-  getUsuario(): User {
+  getUser(): User {
     return {...this.user};
   }
 }

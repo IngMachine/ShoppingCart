@@ -3,9 +3,28 @@
         <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
     </div>
     <p-card class="card">
-        <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
+        <div *ngIf="loading" class="custom-skeleton p-p-4">
+            <div class="p-d-flex p-mb-3">
+                <p-skeleton shape="circle" size="4rem" styleClass="p-mr-2"></p-skeleton>
+                <div>
+                    <p-skeleton width="10rem" styleClass="p-mb-2"></p-skeleton>
+                    <p-skeleton width="5rem" styleClass="p-mb-2"></p-skeleton>
+                    <p-skeleton height=".5rem"></p-skeleton>
+                </div>
+            </div>
+            <p-skeleton width="100%" height="150px"></p-skeleton>
+            <div class="p-d-flex p-jc-between p-mt-3">
+                <p-skeleton width="4rem" height="2rem"></p-skeleton>
+                <p-skeleton width="4rem" height="2rem"></p-skeleton>
+            </div>
+        </div>
+        <p-carousel *ngIf="!loading" [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
             <ng-template pTemplate="header">
-                <h5>Basic</h5>
+                <div class="p-d-flex flex-center p-jc-center">
+                    <div class="p-m-3">
+                        <h3><strong>Preview of our products</strong></h3>
+                    </div>
+                </div>
             </ng-template>
             <ng-template let-product pTemplate="item">
                 <div class="product-item">
@@ -17,11 +36,6 @@
                             <h4 class="p-mb-1">{{product.name}}</h4>
                             <h6 class="p-mt-0 p-mb-3">${{product.price}}</h6>
                             <span [class]="'product-badge status-'+product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
-                            <div class="car-buttons p-mt-5">
-                                <p-button type="button" styleClass="p-button p-button-rounded p-mr-2" icon="pi pi-search"></p-button>
-                                <p-button type="button" styleClass="p-button-success p-button-rounded p-mr-2" icon="pi pi-star"></p-button>
-                                <p-button type="button" styleClass="p-button-help p-button-rounded" icon="pi pi-cog"></p-button>
-                            </div>
                         </div>
                     </div>
                 </div>

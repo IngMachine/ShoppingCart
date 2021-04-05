@@ -1,1 +1,32 @@
-<p>orders works!</p>
+<div class="p-d-flex p-flex-column">
+  <div class="p-mb-2 p-mt-2">
+    <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+  </div>
+  <ng-container *ngFor="let cart of carts">
+    <p-card class="card p-mt-2" [header]="'ID Order:  '+ cart.id" >
+      <ng-template pTemplate="header">
+      </ng-template>
+      <h3>Products</h3>
+      <p-orderList [value]="cart.products" [dragdrop]="true" [controlsPosition]="'right'" [listStyle]="{'max-height':'10rem'}" header="List of Products"  [dragdrop]="true">
+        <ng-template let-product pTemplate="item">
+            <div class="product-item">
+                <div class="image-container">
+                        <img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" />
+                </div>
+                <div class="product-list-detail">
+                    <h5 class="p-mb-2">{{product.name}}</h5>
+                    <i class="pi pi-tag product-category-icon"></i>
+                    <span class="product-category">{{product.category}}</span>
+                </div>
+                <div class="product-list-action">
+                    <h6 class="p-mb-2">${{product.price}}</h6>
+                </div>
+            </div>
+        </ng-template>
+      </p-orderList>
+    <p>Quantity: {{cart.quantity}}</p>
+    </p-card>
+  </ng-container>
+</div>
+
+

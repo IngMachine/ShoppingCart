@@ -1,14 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Product } from '../../../products/interface/product';
 import { ProductService } from '../../../products/services/product.service';
 import { MenuItem } from 'primeng/api';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/ngrx/app.reducer';
+import { DeactivateLoadingAction } from '../../../ngrx/actions/ui-loading.actions';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+
+  subscriptionUI: Subscription;
 
   products!: Product[];
 
@@ -18,7 +24,12 @@ export class HomeComponent implements OnInit {
 
   home!: MenuItem;
 
-  constructor(private productService: ProductService) {
+  loading: boolean;
+
+  constructor(
+    private productService: ProductService,
+    private store: Store<AppState>
+  ) {
     this.responsiveOptions = [
             {
                 breakpoint: '1024px',
@@ -41,9 +52,16 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
 
     this.home = {label: ' Home' , icon: 'pi pi-home'};
+    this.subscriptionUI = this.store.select('uiLoading')
+              .subscribe( uiLoading => this.loading = uiLoading.isLoading );
     this.productService.getProductsSmall().subscribe(products => {
       this.products = products;
+      this.store.dispatch(new DeactivateLoadingAction() );
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptionUI.unsubscribe();
   }
 
 }

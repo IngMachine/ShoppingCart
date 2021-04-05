@@ -4,6 +4,7 @@
     </ng-template>
     <ng-template pTemplate="end">
         <div class="p-d-flex p-ac-center">
+            <i class="pi pi-shopping-cart p-text-secondary" pBadge style="font-size: 2rem;cursor: pointer;" [value]="countProducts" [routerLink]="['/carts']"  ></i>
             <p-chip *ngIf="username" [label]="username" icon="pi pi-user" class="p-ml-6 p-mt-1 p-mr-2"></p-chip>
             <p-chip *ngIf="!username" label="not logged in" icon="pi pi-user-minus" class="p-ml-6 p-mt-1 p-mr-2"></p-chip>
             <p-splitButton *ngIf="username" label="Sign off" icon="pi pi-sign-out" (onClick)="logout()" [model]="items1" styleClass="p-button-secondary"></p-splitButton>
