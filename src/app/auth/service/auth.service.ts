@@ -33,7 +33,6 @@ export class AuthService {
 
   initAuthListener(): void{
     this.firebaseAuth.authState.subscribe( (fbUser: firebase.default.User) => {
-      console.log(fbUser);
       if ( fbUser ){
         this.userSubscription = this.afDB.doc(`${ fbUser.uid }/usuario`)
         .valueChanges()

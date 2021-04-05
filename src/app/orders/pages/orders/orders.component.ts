@@ -28,7 +28,6 @@ export class OrdersComponent implements OnInit {
         this.carts = data.carts;
       }
     )
-    console.log(this.carts);
   }
 
 }

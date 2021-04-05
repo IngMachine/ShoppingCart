@@ -53,30 +53,27 @@ export class CurrentCartComponent implements OnInit {
   }
 
   deleteProduct( product: Product){
-    console.log(product);
     this.cartService.deleteProductCart(product)
     .then(
-      res => {
+      () => {
         this.showInfo(product);
       }
     ).catch(
       err => {
-        console.log('NO se elimino el producto');
         console.log(err);
       }
     )
   };
 
   ordenCart(){
-    if( this.products.length !== 0 ){
-      this.cartService.ordeCart(this.products);
-      this.showSuccess();
-      this.store.dispatch( new ChangeCarStatuAction() );
-      this.route.navigate(['/orders']);
-      this.cartService.deleteCart();
-
-    } else{
+    if( this.products.length === 0 ){
       this.showError();
+    } else{
+        this.cartService.ordeCart(this.products);
+        this.showSuccess();
+        this.route.navigate(['/orders']);
+        this.cartService.deleteCart();  
+        this.store.dispatch( new ChangeCarStatuAction() );
     }
   }
 

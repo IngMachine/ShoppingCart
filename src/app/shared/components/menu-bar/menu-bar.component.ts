@@ -33,7 +33,6 @@ export class MenuBarComponent implements OnInit, OnDestroy {
       .pipe(filter((auth) => auth.user != null))
       .subscribe((auth) => {
         this.username = auth.user.username;
-        console.log(this.username);
       });
   }
 
