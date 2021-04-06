@@ -32,8 +32,8 @@ Despues de loguarse puede:
 ## Cart
 | Imagen | Acciones |
 | --- | --- |
-| ![](image-readme/guardarCarrito.png) |  **1)** Agrega un producto al carrito y recibe una notificacion. **2)** Añade un contador de los producto agregado al carrito|
-| ![](image-readme/Cart.png) |  **1)** Eliminamos el  producto de la fila **2)**Agregagamos una orden y vizualimos todas las ordenes hecha por el usuario autenticado.|
+| ![](image-readme/guardarCarrito.png) |  **1)** Agrega un producto al carrito y recibe una notificacion.  **2)** Añade un contador de los producto agregado al carrito|
+| ![](image-readme/Cart.png) |  **1)** Eliminamos el  producto de la fila **2)** Agregagamos una orden y vizualimos todas las ordenes hecha por el usuario autenticado.|
 
 ## Orders
 
